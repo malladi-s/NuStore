@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run heroku:webpack-build && npm server",
+    "start": "npm run heroku:webpack-build && npm run server",
     "server": "node ./bin/www",
     "dev": "webpack --config webpack.config.js --progress --profile --mode development --watch",
     "prod": "webpack --config webpack.config.js --progress --profile --mode production",
-    "heroku-prebuild": "npm install --dev",
     "heroku:webpack-build": "webpack --config webpack.config.js --mode production"
   },
   "dependencies": {
