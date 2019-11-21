@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run heroku:webpack-build && node ./bin/www",
+    "start": "npm run heroku:webpack-build && npm server",
     "server": "node ./bin/www",
     "dev": "webpack --config webpack.config.js --progress --profile --mode development --watch",
     "prod": "webpack --config webpack.config.js --progress --profile --mode production",
@@ -18,9 +18,7 @@
     "morgan": "1.9.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
-    "react-router-dom": "5.1.2"
-  },
-  "devDependencies": {
+    "react-router-dom": "5.1.2",
     "@babel/core": "7.7.2",
     "@babel/polyfill": "7.7.0",
     "@babel/preset-env": "7.7.1",
