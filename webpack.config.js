@@ -5,7 +5,7 @@ module.exports = (env, argv) => {
   let production = argv.mode === "production";
 
   const webpackConfig = {
-    context: resolve(__dirname, "client"),
+    context: resolve(__dirname, "src"),
     entry: {
       app: ["@babel/polyfill", "./index.jsx"]
     },
