@@ -38,7 +38,7 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "client/*"
+      "src/*"
     ]
   }
 }
