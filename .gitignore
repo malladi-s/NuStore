@@ -62,3 +62,6 @@ typings/
 
 # final js file
 public/dist/*
+
+# Environment file
+.env

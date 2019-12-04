@@ -36,10 +36,18 @@ module.exports = (env, argv) => {
           test: /\.jsx?$/,
           exclude: /(node_modules|public\/)/,
           loader: "babel-loader"
+        },
+        {
+          test: /\.(eot|gif|otf|png|svg|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          use: "file-loader"
         }
       ]
     }
   };
+
+  if (!production) {
+    webpackConfig.devtool = "cheap-module-eval-source-map";
+  }
 
   if (production) {
     webpackConfig.plugins.push(
