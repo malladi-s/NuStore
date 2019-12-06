@@ -37,7 +37,7 @@ export default class RegisterPage extends React.Component {
 
   render() {
     return (
-      <div className="row justify-content-center">
+      <div className="row justify-content-center mt-3">
         <div className="col-10 col-sm-7 col-md-5 col-lg-4">
           <AvForm onValidSubmit={this.handleValidSubmit}>
             <AvGroup>

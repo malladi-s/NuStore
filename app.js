@@ -14,10 +14,10 @@ if (!process.env.isHeroku) {
 
 var app = express();
 
-mongoose.connect("mongodb://localhost/test");
-mongoose.Promise = global.Promise;
+const authenticationRouter = require("./routes/api/authentication");
 
-// view engine setup
+mongoose.connect("mongodb://localhost/test");
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -39,6 +39,8 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use("/api/authentication", authenticationRouter);
 
 app.get("/", function(req, res) {
   res.render("index");

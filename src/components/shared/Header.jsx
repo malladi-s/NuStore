@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import nustoreImage from "../../img/logo-1.png";
-import searchImg from "../../img/icons/magnify.svg";
-import accountImg from "../../img/icons/account.svg";
-
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import {
   Modal,
   Button,
@@ -17,44 +14,190 @@ import {
   ModalBody,
   ModalFooter
 } from "reactstrap";
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback
+} from "availity-reactstrap-validation";
 
-import { Nav, NavItem } from "reactstrap";
+import { incrementLoader, decrementLoader } from "../../actions/loader";
+import {
+  loginAttempt,
+  loginSuccess,
+  loginFailure,
+  logoutSuccess,
+  logoutFailure
+} from "../../actions/authentication";
 
-export default class Header extends React.Component {
+import nustoreImage from "../../img/logo-1.png";
+import searchImg from "../../img/icons/magnify.svg";
+import accountImg from "../../img/icons/account.svg";
+import loginImg from "../../img/icons/login.svg";
+
+class Header extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.logOutClick = this.logOutClick.bind(this);
-    // this.renderGreeting = this.renderGreeting.bind(this);
+    this.logOutClick = this.logOutClick.bind(this);
+    this.renderLoginModal = this.renderLoginModal.bind(this);
     this.toggleRegisterAccountModal = this.toggleRegisterAccountModal.bind(
       this
     );
+    this.toggle = this.toggle.bind(this);
     this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleValidSubmit = this.handleValidSubmit.bind(this);
 
     this.state = {
       isOpen: false,
-      isRegisterAccountModalOpen: false
+      isRegisterAccountModalOpen: false,
+      modal: false,
+      username: "",
+      password: ""
     };
   }
 
-  logOutClick(event) {
+  async logOutClick(event) {
+    const { dispatch } = this.props;
     event.preventDefault();
-    this.props.logUserOutFunction();
+    dispatch(incrementLoader());
+
+    await fetch("/api/authentication/logout", {
+      method: "GET",
+      credentials: "same-origin"
+    })
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(logoutSuccess());
+        } else {
+          toast.error("Logout failed. Please Try again.");
+        }
+      })
+      .catch(error => {
+        dispatch(logoutFailure(new Error(error)));
+        toast.error("Logout failed. Please Try again.");
+      });
+
+    dispatch(decrementLoader());
   }
 
-  renderGreeting(name) {
+  handleUsernameChange(e) {
+    this.setState({ username: e.target.value });
+  }
+
+  handlePasswordChange(e) {
+    this.setState({ password: e.target.value });
+  }
+
+  async handleValidSubmit() {
+    const { dispatch } = this.props;
+
+    const formData = {
+      username: this.state.username,
+      password: this.state.password
+    };
+
+    dispatch(incrementLoader());
+
+    dispatch(loginAttempt());
+
+    await fetch("/api/authentication/login", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      })
+      .then(json => {
+        if (json == null || (json && json.error)) {
+          dispatch(
+            loginFailure(
+              new Error("Email or Password Incorrect. Please Try again.")
+            )
+          );
+          toast.error("Email or Password Incorrect. Please Try again.");
+        } else {
+          dispatch(loginSuccess(json));
+          this.setState({
+            modal: false
+          });
+          toast.success(`Welcome ${json.firstName}`);
+        }
+      })
+      .catch(error => {
+        toast.error("Email or Password Incorrect. Please Try again.");
+        dispatch(loginFailure(new Error(error)));
+      })
+      .finally(function() {
+        dispatch(decrementLoader());
+      });
+  }
+
+  renderLoginModal() {
     return (
-      <Nav className="ml-auto" navbar>
-        <NavItem>
-          <span className="nav-link">
-            Welcome, {name + " "}|{" "}
-            <a href="/logout" onClick={this.logOutClick}>
-              Log Out
-            </a>
-          </span>
-        </NavItem>
-      </Nav>
+      <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>Login</ModalHeader>
+        <ModalBody>
+          <div className="row justify-content-center mt-3">
+            <AvForm onValidSubmit={this.handleValidSubmit}>
+              <AvGroup>
+                <Label for="username">Username</Label>
+                <AvInput
+                  id="username"
+                  name="username"
+                  onChange={this.handleUsernameChange}
+                  placeholder="username"
+                  required
+                  type="text"
+                  value={this.state.username}
+                />
+              </AvGroup>
+              <AvGroup>
+                <Label for="userPassword">Password</Label>
+                <AvInput
+                  id="userPassword"
+                  name="password"
+                  onChange={this.handlePasswordChange}
+                  placeholder="password"
+                  required
+                  type="password"
+                  value={this.state.password}
+                />
+                <AvFeedback>Password is required to log in</AvFeedback>
+                <span>
+                  <Link onClick={this.toggle} to="/account/reset-password">
+                    Forgot your password?
+                  </Link>
+                </span>
+              </AvGroup>
+              <Button color="primary">Log In</Button>
+            </AvForm>
+          </div>
+        </ModalBody>
+      </Modal>
     );
+  }
+
+  toggle() {
+    if (!this.state.modal) {
+      this.setState({
+        username: "",
+        password: ""
+      });
+    }
+
+    this.setState({
+      modal: !this.state.modal
+    });
   }
 
   toggleNavbar() {
@@ -75,9 +218,12 @@ export default class Header extends React.Component {
 
     return (
       <div className="container pt-3">
+        {this.renderLoginModal()}
         <div className="row">
           <div className="col-lg-2 text-center text-lg-left">
-            <img src={nustoreImage} height="50" alt="" />
+            <Link to="/" className="link">
+              <img src={nustoreImage} height="50" alt="" />
+            </Link>
           </div>
 
           <div className="col-xl-6 col-lg-5">
@@ -91,10 +237,17 @@ export default class Header extends React.Component {
 
           <div className="col-xl-4 col-lg-5 m-auto">
             <div className="user-panel d-flex justify-content-center">
-              {isLoggedIn ? null : (
+              {isLoggedIn ? (
                 <div className="up-item">
-                  <a className="link">
-                    <img src={accountImg} width="32" height="32" />
+                  <a className="link" onClick={this.logOutClick}>
+                    <img src={accountImg} width="32" height="32" /> Log Out{" "}
+                    {firstName}
+                  </a>
+                </div>
+              ) : (
+                <div className="up-item">
+                  <a className="link" onClick={this.toggle}>
+                    <img src={loginImg} width="32" height="32" />
                     Sign In{" "}
                   </a>
                   {"  |  "}
@@ -114,3 +267,11 @@ export default class Header extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    authentication: state.authentication
+  };
+}
+
+export default connect(mapStateToProps)(Header);
