@@ -171,7 +171,7 @@ router.post("/saveresethash", async (req, res) => {
           from: process.env.emailUsername,
           to: foundUser.email,
           subject: "Reset Your Password",
-          html: `<p>A password reset has been requested for the Euphony account connected to this email address. If you made this request, please click the following link: <a target="_blank" href="http://localhost:3000/account/change-password/${foundUser.passwordReset}">http://localhost:3000/account/change-password/${foundUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`
+          html: `<p>A password reset has been requested for the Euphony account connected to this email address. If you made this request, please click the following link: <a target="_blank" href="http://localhost:${process.env.port}/account/change-password/${foundUser.passwordReset}">http://localhost:${process.env.port}/account/change-password/${foundUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`
         };
 
         transporter.sendMail(mailOptions, function(err, info) {
