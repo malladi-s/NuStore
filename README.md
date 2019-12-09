@@ -2,7 +2,9 @@
 
 # Running the development code
 
-    npm start
+    npm install
+    npm run devServer
+    npm run devClient
 
 # Development guidelines
 
