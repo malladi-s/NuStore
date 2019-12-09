@@ -15,8 +15,6 @@ if (!process.env.isHeroku) {
 
 var app = express();
 
-const authenticationRouter = require("./routes/api/authentication");
-
 mongoose.connect("mongodb://localhost/test");
 
 app.set("views", path.join(__dirname, "views"));
@@ -41,8 +39,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/authentication", authenticationRouter);
+const authenticationRouter = require("./routes/api/authentication");
+const productRouter = require("./routes/api/products");
+const userRouter = require("./routes/api/users");
 
+app.use("/api/authentication", authenticationRouter);
+app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
 app.get("/", function(req, res) {
   res.render("index");
 });
