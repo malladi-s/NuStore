@@ -217,49 +217,51 @@ class Header extends React.Component {
     const { toggleRegisterAccountModal, isRegisterAccountModalOpen } = this;
 
     return (
-      <div className="container pt-3">
-        {this.renderLoginModal()}
-        <div className="row">
-          <div className="col-lg-2 text-center text-lg-left">
-            <Link to="/" className="link">
-              <img src={nustoreImage} height="50" alt="" />
-            </Link>
-          </div>
+      <div className="header-top">
+        <div className="container">
+          {this.renderLoginModal()}
+          <div className="row">
+            <div className="col-lg-2 text-center text-lg-left">
+              <Link to="/" className="link">
+                <img src={nustoreImage} height="50" alt="" />
+              </Link>
+            </div>
 
-          <div className="col-xl-6 col-lg-5">
-            <form className="header-search-form">
-              <input type="text" placeholder="Search ...." />
-              <button>
-                <img src={searchImg} />
-              </button>
-            </form>
-          </div>
+            <div className="col-xl-6 col-lg-5">
+              <form className="header-search-form">
+                <input type="text" placeholder="Search ...." />
+                <button>
+                  <img src={searchImg} />
+                </button>
+              </form>
+            </div>
 
-          <div className="col-xl-4 col-lg-5 m-auto">
-            <div className="user-panel d-flex justify-content-center">
-              {isLoggedIn ? (
-                <div className="up-item">
-                  <a className="link" onClick={this.logOutClick}>
-                    <img src={accountImg} width="32" height="32" /> Log Out{" "}
-                    {firstName}
-                  </a>
-                </div>
-              ) : (
-                <div className="up-item">
-                  <a className="link" onClick={this.toggle}>
-                    <img src={loginImg} width="32" height="32" />
-                    Sign In{" "}
-                  </a>
-                  {"  |  "}
-                  <Link
-                    to="/account/register"
-                    onClick={toggleRegisterAccountModal}
-                    className="link"
-                  >
-                    Create Account
-                  </Link>
-                </div>
-              )}
+            <div className="col-xl-4 col-lg-5 m-auto">
+              <div className="user-panel d-flex justify-content-center">
+                {isLoggedIn ? (
+                  <div className="up-item">
+                    <a className="link" onClick={this.logOutClick}>
+                      <img src={accountImg} width="32" height="32" /> Log Out{" "}
+                      {firstName}
+                    </a>
+                  </div>
+                ) : (
+                  <div className="up-item">
+                    <a className="link" onClick={this.toggle}>
+                      <img src={loginImg} width="32" height="32" />
+                      Sign In{" "}
+                    </a>
+                    {"  |  "}
+                    <Link
+                      to="/account/register"
+                      onClick={toggleRegisterAccountModal}
+                      className="link"
+                    >
+                      Create Account
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

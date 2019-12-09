@@ -9,8 +9,19 @@ input:focus, select:focus, button:focus, textarea:focus {
     outline: none;
 }
 
+a:hover, a:focus {
+    text-decoration: none;
+    outline: none;
+}
+
 .link {
     cursor: pointer;
+}
+
+/* Header START*/
+
+.header-top {
+    padding: 18px 0 14px;
 }
 
 .header-search-form {
@@ -53,3 +64,35 @@ input:focus, select:focus, button:focus, textarea:focus {
 .user-panel .up-item:first-child {
     margin-right: 29px;
 }
+
+/* Header END*/
+
+/* Navbar START */
+
+.navbar {
+    background: red;
+}
+
+.navbar .navbar-collapse>.navbar-nav>li>a.nav-link {
+    display: inline-block;
+    font-size: 16px;
+    color: #ffffff;
+    margin-right: 50px;
+    line-height: 1;
+    padding: 17px 0;
+    position: relative;
+}
+
+.navbar .navbar-collapse>.navbar-nav>li:hover>a.nav-link {
+    color: black;
+}
+
+.navbar .navbar-toggler {
+    border-color: white;
+}
+
+.navbar .navbar-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+/* Navbar END */

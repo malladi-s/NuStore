@@ -1,5 +1,6 @@
 const { resolve } = require("path");
 const CompressionPlugin = require("compression-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = (env, argv) => {
   let production = argv.mode === "production";
@@ -25,7 +26,7 @@ module.exports = (env, argv) => {
       noEmitOnErrors: true,
       concatenateModules: true
     },
-    plugins: [],
+    plugins: [new Dotenv()],
     module: {
       rules: [
         {
