@@ -17,7 +17,7 @@ if (!process.env.isHeroku) {
 
 var app = express();
 
-var port = normalizePort(process.env.PORT);
+var port = normalizePort(process.env.port);
 app.set("port", port);
 
 var server = http.createServer(app);
