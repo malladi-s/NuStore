@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { HashRouter as Router, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import socket from "./socket";
 
 import RegisterPage from "./components/account/RegistrationContainer.jsx";
 import RegistrationSuccessPage from "./components/account/RegistrationSuccessContainer.jsx";
@@ -11,6 +12,7 @@ import Header from "./components/shared/Header.jsx";
 import ProuductList from "./components/home/ProductList.jsx";
 import ResetPasswordPage from "./components/account/ResetPasswordPageContainer";
 import ChangePasswordPage from "./components/account/ChangePasswordPageContainer";
+import NavigationBar from "./components/shared/NavigationBar";
 
 import { checkSession } from "./actions/authentication.js";
 
@@ -18,13 +20,25 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      socket: socket()
+    };
+
     this.checkUserSession = this.checkUserSession.bind(this);
   }
 
   // TODO : Replace with componentDidMount
   UNSAFE_componentWillMount() {
-    // Before the component mounts, check for an existing user session
     this.checkUserSession();
+  }
+
+  componentWillReceiveProps(prevProps) {
+    if (
+      prevProps.authentication.isLoggedin &&
+      prevProps.authentication.isLoggedin != this.props.isLoggedin
+    ) {
+      console.log("login changed");
+    }
   }
 
   checkUserSession() {
@@ -37,6 +51,7 @@ class App extends React.Component {
       <Router>
         <div className="wrapper">
           <Header authentication={authentication} />
+          <NavigationBar></NavigationBar>
           <section className="page-content container-fluid">
             <Route exact path="/" component={HomePage} />
             <Route
