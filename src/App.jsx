@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import RegisterPage from "./components/account/RegistrationContainer.jsx";
 import RegistrationSuccessPage from "./components/account/RegistrationSuccessContainer.jsx";
 import Header from "./components/shared/Header.jsx";
+import ProuductList from "./components/home/ProductList.jsx";
 import ResetPasswordPage from "./components/account/ResetPasswordPageContainer";
 import ChangePasswordPage from "./components/account/ChangePasswordPageContainer";
 
@@ -63,7 +64,7 @@ class App extends React.Component {
 }
 
 function HomePage() {
-  return <div>Home Page</div>;
+  return <ProuductList />;
 }
 
 function Profile() {
