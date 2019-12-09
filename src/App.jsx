@@ -13,6 +13,7 @@ import ProuductList from "./components/home/ProductList.jsx";
 import ResetPasswordPage from "./components/account/ResetPasswordPageContainer";
 import ChangePasswordPage from "./components/account/ChangePasswordPageContainer";
 import NavigationBar from "./components/shared/NavigationBar";
+import Carousal from "./components/home/Carousal.jsx";
 
 import { checkSession } from "./actions/authentication.js";
 
@@ -52,7 +53,7 @@ class App extends React.Component {
         <div className="wrapper">
           <Header authentication={authentication} />
           <NavigationBar></NavigationBar>
-          <section className="page-content container-fluid">
+          <section className="page-content container-fluid p-0">
             <Route exact path="/" component={HomePage} />
             <Route
               path="/account/change-password/:hash"
@@ -79,7 +80,12 @@ class App extends React.Component {
 }
 
 function HomePage() {
-  return <ProuductList />;
+  return (
+    <div>
+      <Carousal />
+      <ProuductList />
+    </div>
+  );
 }
 
 function Profile() {
