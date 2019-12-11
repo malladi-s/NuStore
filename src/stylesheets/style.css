@@ -83,7 +83,7 @@ a:hover, a:focus {
     flex-direction: row;
 }
 
-.product_heading_style{
+.product_heading_style {
     padding-top: 10px;
     margin-left: 30px;
     font-weight: bold;
@@ -92,7 +92,7 @@ a:hover, a:focus {
     font-size: 27px;
 }
 
-.product_details_style{
+.product_details_style {
     margin-left: 30px;
     padding-top: 12px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
