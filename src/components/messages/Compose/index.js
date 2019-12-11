@@ -18,6 +18,7 @@ export default class Compose extends React.Component {
   keyPressed(event) {
     if (event.key === "Enter") {
       this.props.submitMessage(this.state.message);
+      this.setState({ message: "" });
     }
   }
 

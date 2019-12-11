@@ -9,12 +9,19 @@ export default function ConversationListItem(props) {
   });
 
   const { photo, name, text } = props.data;
+  const { selectedUser } = props;
 
   const IsUserOnline = props.usersOnline.indexOf(name) >= 0;
 
+  let conversationClass = "";
+
+  if (name == selectedUser) {
+    conversationClass = "selected";
+  }
+
   return (
     <div
-      className="conversation-list-item"
+      className={`conversation-list-item ${conversationClass}`}
       onClick={() => props.setSelectedUser(name)}
     >
       <img className="conversation-photo" src={photo} alt="conversation" />

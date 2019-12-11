@@ -1,9 +1,8 @@
 import React from "react";
 import Compose from "../Compose";
-import Toolbar from "../Toolbar";
-import ToolbarButton from "../ToolbarButton";
 import Message from "../Message";
 import moment from "moment";
+import { UncontrolledTooltip } from "reactstrap";
 
 import "./MessageList.css";
 
@@ -11,6 +10,14 @@ export default class MessageList extends React.Component {
   constructor(props) {
     super(props);
     this.renderMessages = this.renderMessages.bind(this);
+  }
+
+  componentDidUpdate() {
+    const objDiv = document.getElementById("messages-list");
+    objDiv.scrollTop = objDiv.scrollHeight;
+    document.querySelector(".messenger").scrollIntoView({
+      behavior: "smooth"
+    });
   }
 
   renderMessages() {
@@ -82,8 +89,12 @@ export default class MessageList extends React.Component {
           <h1 className="toolbar-title">{`Conversation with ${this.props.selectedUser}`}</h1>
           <div className="right-items">
             <i
+              id="info-button"
               className={`toolbar-button ion-ios-information-circle-outline`}
             />
+            <UncontrolledTooltip placement="right" target="info-button">
+              See profile
+            </UncontrolledTooltip>
           </div>
         </div>
         <div className="message-list-container">{this.renderMessages()}</div>

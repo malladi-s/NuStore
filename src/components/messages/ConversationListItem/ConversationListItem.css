@@ -4,6 +4,11 @@
   padding: 10px;
 }
 
+.conversation-list-item.selected {
+  background: #eeeef1;
+  cursor: pointer;
+}
+
 .conversation-list-item:hover {
   background: #eeeef1;
   cursor: pointer;
