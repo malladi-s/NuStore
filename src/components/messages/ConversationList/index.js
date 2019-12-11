@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer } from "react";
 import ConversationSearch from "../ConversationSearch";
 import ConversationListItem from "../ConversationListItem";
 import Toolbar from "../Toolbar";
@@ -7,7 +7,14 @@ import Usersdropdown from "./Usersdropdown";
 
 import "./ConversationList.css";
 
+const initialState = { searchText: "" };
+
+function reducer(state, value) {
+  return { searchText: value };
+}
+
 export default function ConversationList(props) {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const currentUsername = props.currentUser.username;
 
   let messagesWithCurrentUser = props.messages.filter(
@@ -26,12 +33,14 @@ export default function ConversationList(props) {
     ) {
       allUsersInteractedWith[otherUsername].text = message.text;
       allUsersInteractedWith[otherUsername].name = otherUsername;
+      allUsersInteractedWith[otherUsername].timeStamp = message.timeStamp;
       allUsersInteractedWith[otherUsername].photo =
         "https://randomuser.me/api/portraits/women/29.jpg";
     } else {
       allUsersInteractedWith[otherUsername] = {};
       allUsersInteractedWith[otherUsername].text = message.text;
       allUsersInteractedWith[otherUsername].name = otherUsername;
+      allUsersInteractedWith[otherUsername].timeStamp = message.timeStamp;
       allUsersInteractedWith[otherUsername].photo =
         "https://randomuser.me/api/portraits/women/29.jpg";
     }
@@ -54,15 +63,23 @@ export default function ConversationList(props) {
           />
         </div>
       </div>
-      <ConversationSearch />
-      {sortedRecentMessages.map(conversation => (
-        <ConversationListItem
-          key={conversation.name}
-          data={conversation}
-          usersOnline={props.usersOnline}
-          setSelectedUser={props.setSelectedUser}
-        />
-      ))}
+      <ConversationSearch searchText={state.searchText} textChange={dispatch} />
+      {sortedRecentMessages
+        .filter(conversation => {
+          if (state.searchText == "") return true;
+          return conversation.name
+            .toLowerCase()
+            .includes(state.searchText.toLowerCase());
+        })
+        .map(conversation => (
+          <ConversationListItem
+            key={conversation.name}
+            data={conversation}
+            usersOnline={props.usersOnline}
+            selectedUser={props.selectedUser}
+            setSelectedUser={props.setSelectedUser}
+          />
+        ))}
       {/* sortedRecentMessages.length > 0 ? (
         sortedRecentMessages.map(conversation => (
           <ConversationListItem

@@ -3,7 +3,8 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  UncontrolledTooltip
 } from "reactstrap";
 
 const Usersdropdown = props => {
@@ -14,9 +15,13 @@ const Usersdropdown = props => {
   return (
     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
       <DropdownToggle
+        id="addOnlineFriend"
         tag="i"
         className={`toolbar-button ion-ios-add-circle-outline`}
       ></DropdownToggle>
+      <UncontrolledTooltip placement="right" target="addOnlineFriend">
+        Select a person to chat with
+      </UncontrolledTooltip>
       <DropdownMenu>
         {props.usersOnline.map(users =>
           props.currentUsername != users ? (

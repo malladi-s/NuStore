@@ -3,7 +3,6 @@
   width: 100%;
   height: 100vh;
   background: #eeeef1;
-
   grid-template-columns: 350px auto;
   grid-template-rows: 60px auto 60px;
   grid-column-gap: 1px;
@@ -16,7 +15,7 @@
 
 .scrollable {
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -35,4 +34,8 @@
 .footer {
   grid-column-start: 2;
   background: white;
+}
+
+#messages-list {
+  scroll-behavior: smooth;
 }

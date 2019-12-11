@@ -65,15 +65,27 @@ export default class Messenger extends React.Component {
               usersOnline: listOfOnlineUsers
             });
           });
-          this.setState({
-            messages: [...json.messages]
-          });
+          this.setState(
+            {
+              messages: [...json.messages],
+              selectedUser: this.props.username || null
+            },
+            () => this.setSelectedUser(this.state.selectedUser)
+          );
         }
       })
       .catch(error => {
         toast.error("Failed to connect to chat api.");
       })
       .finally(function() {});
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.messages != this.state.messages) {
+      if (this.state.selectedUser) {
+        this.setSelectedUser(this.state.selectedUser);
+      }
+    }
   }
 
   submitMessage(message) {
@@ -86,19 +98,15 @@ export default class Messenger extends React.Component {
 
     this.socket.emit("client:message", messageObject);
 
-    this.setState({
-      messages: [...this.state.messages, messageObject]
-    });
+    this.setState(
+      {
+        messages: [...this.state.messages, messageObject]
+      },
+      () => this.setSelectedUser(this.state.selectedUser)
+    );
   }
 
   sendHandler(message) {
-    // const messageObject = {
-    //   id: index,
-    //   author: message.from,
-    //   message: message.text,
-    //   timestamp: new Date().getTime()
-    // };
-
     const messageObject = new Message(
       this.props.user.username,
       "invictusmaneo",
@@ -170,7 +178,7 @@ export default class Messenger extends React.Component {
             usersOnline={this.state.usersOnline}
           />
         </div>
-        <div className="scrollable content">
+        <div id="messages-list" className="scrollable content">
           <MessageList
             submitMessage={this.submitMessage}
             selectedUser={selectedUser}
