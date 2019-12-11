@@ -78,6 +78,28 @@ a:hover, a:focus {
     background-color: red;
 }
 
+.single_card {
+    display: flex;
+    flex-direction: row;
+}
+
+.product_heading_style{
+    padding-top: 10px;
+    margin-left: 30px;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: crimson;
+    font-size: 27px;
+}
+
+.product_details_style{
+    margin-left: 30px;
+    padding-top: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 22px;
+    color: brown;
+}
+
 .navbar .navbar-collapse>.navbar-nav>li>a.nav-link {
     display: inline-block;
     font-size: 16px;

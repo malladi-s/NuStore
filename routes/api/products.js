@@ -39,6 +39,7 @@ router.route("/:id").get((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+
 router.route("/update/:id").post((req, res) => {
   Product.findById(req.params.id)
     .then(product => {
@@ -58,5 +59,15 @@ router.route("/update/:id").post((req, res) => {
     })
     .catch(err => res.status(400).json("Error:" + err));
 });
+
+router.route("/category/:categoryname").get((req, res) => {
+  Product.find({ category: req.params.categoryname })
+    .then((products) => {
+      return res.json(products)
+    })
+    .catch(err => {
+      return res.status(400).json("Error:" + err)
+    });
+})
 
 module.exports = router;

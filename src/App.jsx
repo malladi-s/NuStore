@@ -17,6 +17,7 @@ import Carousal from "./components/home/Carousal.jsx";
 import postProducts from "./components/products/Postproduct";
 
 import { checkSession } from "./actions/authentication.js";
+import ProductDetails from "./components/product/ProductDetails";
 
 class App extends React.Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class App extends React.Component {
             <Route path="/profile" component={Profile} />
             <Route exact path="/messages" component={Messenger} />
             <Route path="/postproducts" exact component={postProducts} />
+            <Route exact path="/product/:id" component={ProductDetails} />
           </section>
         </div>
         <ToastContainer autoClose={3000} />
@@ -94,6 +96,16 @@ function mapStateToProps(state) {
   return {
     authentication: state.authentication
   };
+}
+
+function Product() {
+  // return (<div>product details</div>);
+  // return (<div><Carousal /><ProductDetails /></div>);
+  return (
+    <div>
+      <ProductDetails />
+    </div>
+  );
 }
 
 export default connect(mapStateToProps)(App);
