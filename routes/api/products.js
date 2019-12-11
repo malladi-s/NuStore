@@ -11,10 +11,10 @@ router.route("/add").post((req, res) => {
   const prodname = req.body.prodname;
   const username = req.body.username;
   const description = req.body.description;
-  const price = Number(req.body.prince);
+  const price = Number(req.body.price);
   const date = Date.parse(req.body.date);
   const category = req.body.category;
-  const url = req.body.url;
+  const image = req.body.image;
   const isSold = req.body.isSold;
 
   const newProduct = new Product({
@@ -24,7 +24,7 @@ router.route("/add").post((req, res) => {
     price,
     date,
     category,
-    url,
+    image,
     isSold
   });
   newProduct

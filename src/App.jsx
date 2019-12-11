@@ -14,6 +14,7 @@ import ResetPasswordPage from "./components/account/ResetPasswordPageContainer";
 import ChangePasswordPage from "./components/account/ChangePasswordPageContainer";
 import NavigationBar from "./components/shared/NavigationBar";
 import Carousal from "./components/home/Carousal.jsx";
+import postProducts from "./components/products/Postproduct";
 
 import { checkSession } from "./actions/authentication.js";
 
@@ -67,6 +68,7 @@ class App extends React.Component {
             />
             <Route path="/profile" component={Profile} />
             <Route exact path="/messages" component={Messenger} />
+            <Route path="/postproducts" exact component={postProducts} />
           </section>
         </div>
         <ToastContainer autoClose={3000} />
