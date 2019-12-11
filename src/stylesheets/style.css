@@ -71,7 +71,11 @@ a:hover, a:focus {
 
 .navbar {
     background: red;
-    height: 50px;
+    padding: 0;
+}
+
+.navbar-collapse {
+    background-color: red;
 }
 
 .navbar .navbar-collapse>.navbar-nav>li>a.nav-link {

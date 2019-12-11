@@ -148,7 +148,7 @@ class Header extends React.Component {
         <ModalHeader toggle={this.toggle}>Login</ModalHeader>
         <ModalBody>
           <div className="row justify-content-center mt-3">
-            <AvForm onValidSubmit={this.handleValidSubmit}>
+            <AvForm className="w-75" onValidSubmit={this.handleValidSubmit}>
               <AvGroup>
                 <Label for="username">Username</Label>
                 <AvInput
@@ -244,6 +244,10 @@ class Header extends React.Component {
                       <img src={accountImg} width="32" height="32" /> Log Out{" "}
                       {firstName}
                     </a>
+                    {"  |  "}
+                    <Link to="/messages" className="link">
+                      Messages
+                    </Link>
                   </div>
                 ) : (
                   <div className="up-item">

@@ -10,6 +10,7 @@ var passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 var debug = require("debug")("nustore:server");
 var http = require("http");
+const Message = require("./models/Message");
 
 if (!process.env.isHeroku) {
   require("dotenv").config();
@@ -98,9 +99,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const authenticationRouter = require("./routes/api/authentication");
+const messagesRouter = require("./routes/api/messages");
 const productRouter = require("./routes/api/products");
 const userRouter = require("./routes/api/users");
 
+app.use("/api/messages", messagesRouter);
 app.use("/api/authentication", authenticationRouter);
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
@@ -108,42 +111,38 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
-io.on("connection", function(client) {
-  console.log("client connected...", client.id);
-  console.log("probably add the client");
+var listOfUsersOnline = [];
 
-  client.on("register", function() {
-    console.log("register");
+io.on("connection", function(socket) {
+  const username = socket.handshake.query.username;
+
+  console.log(`${username} connected.`);
+
+  listOfUsersOnline.push(username);
+  socket.broadcast.emit("listOfOnlineUsers", listOfUsersOnline);
+  io.to(socket.id).emit("listOfOnlineUsers", listOfUsersOnline);
+
+  socket.on("client:message", data => {
+    console.log(`${data.from}: ${data.text}`);
+    // message received from client, now broadcast it to everyone else
+    socket.broadcast.emit("server:message", data);
+
+    let newMessage = new Message({
+      ...data,
+      id: data.id || new Date().getTime()
+    });
+
+    newMessage.save();
   });
 
-  client.on("join", function() {
-    console.log("join");
-  });
+  socket.on("disconnect", () => {
+    console.log(`${username} disconnected`);
 
-  client.on("leave", function() {
-    console.log("leave");
-  });
-
-  client.on("message", function() {
-    console.log("message");
-  });
-
-  client.on("chatrooms", function() {
-    console.log("chatrooms");
-  });
-
-  client.on("availableUsers", function() {
-    console.log("availableUsers");
-  });
-
-  client.on("disconnect", function() {
-    console.log("client disconnect...", client.id);
-    // handleDisconnect();
-  });
-
-  client.on("error", function(err) {
-    console.log("received error from client:", client.id);
-    console.log(err);
+    var index = listOfUsersOnline.indexOf(username);
+    if (index > -1) {
+      listOfUsersOnline.splice(index, 1);
+    }
+    socket.broadcast.emit("listOfOnlineUsers", listOfUsersOnline);
   });
 });
 
