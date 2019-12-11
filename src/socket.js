@@ -32,10 +32,6 @@ export default function() {
     socket.emit("message", { chatroomName, message: msg }, cb);
   }
 
-  function getChatrooms(cb) {
-    socket.emit("chatrooms", null, cb);
-  }
-
   function getAvailableUsers(cb) {
     socket.emit("availableUsers", null, cb);
   }

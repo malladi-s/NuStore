@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { HashRouter as Router, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import socket from "./socket";
 
 import RegisterPage from "./components/account/RegistrationContainer.jsx";
 import RegistrationSuccessPage from "./components/account/RegistrationSuccessContainer.jsx";
 import Header from "./components/shared/Header.jsx";
+import Messenger from "./components/messages/Messenger/MessengerContainer";
 import ProuductList from "./components/home/ProductList.jsx";
 import ResetPasswordPage from "./components/account/ResetPasswordPageContainer";
 import ChangePasswordPage from "./components/account/ChangePasswordPageContainer";
@@ -20,11 +20,6 @@ import { checkSession } from "./actions/authentication.js";
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      socket: socket()
-    };
-
     this.checkUserSession = this.checkUserSession.bind(this);
   }
 
@@ -71,6 +66,7 @@ class App extends React.Component {
               component={ResetPasswordPage}
             />
             <Route path="/profile" component={Profile} />
+            <Route exact path="/messages" component={Messenger} />
           </section>
         </div>
         <ToastContainer autoClose={3000} />

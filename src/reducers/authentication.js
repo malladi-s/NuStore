@@ -33,6 +33,7 @@ export default function reducer(state = initialState, action) {
       newState.isLoggingIn = false;
       newState.lastName = action.json.lastName;
       newState.username = action.json.username;
+      newState.email = action.json.email;
       return newState;
     }
     case "AUTHENTICATION_LOGOUT_FAILURE":
