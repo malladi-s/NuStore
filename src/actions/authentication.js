@@ -133,7 +133,7 @@ export function checkSession() {
         return null;
       })
       .then(json => {
-        if (json.username) {
+        if (json.username || json.provider) {
           return dispatch(sessionCheckSuccess(json));
         }
         return dispatch(sessionCheckFailure());

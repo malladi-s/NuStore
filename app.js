@@ -8,6 +8,8 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const GithubStrategy = require("passport-github").Strategy;
+const AmazonStrategy = require("passport-amazon").Strategy;
 var debug = require("debug")("nustore:server");
 var http = require("http");
 const Message = require("./models/Message");
@@ -103,6 +105,29 @@ const messagesRouter = require("./routes/api/messages");
 const productRouter = require("./routes/api/products");
 const userRouter = require("./routes/api/users");
 
+app.get("/auth/github", passport.authenticate("github"));
+app.get(
+  "/auth/github/callback",
+  passport.authenticate("github"),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
+
+app.get(
+  "/auth/amazon",
+  passport.authenticate("amazon", {
+    scope: ["profile"]
+  })
+);
+app.get(
+  "/auth/amazon/callback",
+  passport.authenticate("amazon"),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
+
 app.use("/api/messages", messagesRouter);
 app.use("/api/authentication", authenticationRouter);
 app.use("/api/products", productRouter);
@@ -149,8 +174,42 @@ io.on("connection", function(socket) {
 const User = require("./models/user");
 
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser((user, cb) => {
+  User.serializeUser();
+  cb(null, user);
+});
+passport.deserializeUser((user, cb) => {
+  User.deserializeUser();
+  cb(null, user);
+});
+
+passport.use(
+  new GithubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: "/auth/github/callback",
+      failureRedirect: "/"
+    },
+    (accessToken, refreshToken, profile, cb) => {
+      return cb(null, profile);
+    }
+  )
+);
+
+passport.use(
+  new AmazonStrategy(
+    {
+      clientID: process.env.AMAZON_CLIENT_ID,
+      clientSecret: process.env.AMAZON_CLIENT_SECRET,
+      callbackURL: "/auth/amazon/callback",
+      failureRedirect: "/"
+    },
+    (accessToken, refreshToken, profile, cb) => {
+      return cb(null, profile);
+    }
+  )
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

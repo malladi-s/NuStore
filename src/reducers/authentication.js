@@ -27,13 +27,32 @@ export default function reducer(state = initialState, action) {
     case "AUTHENTICATION_LOGIN_SUCCESS":
     case "AUTHENTICATION_SESSION_CHECK_SUCCESS": {
       const newState = Object.assign({}, state);
-      newState.firstName = action.json.firstName;
-      newState.id = action.json._id;
-      newState.isLoggedIn = true;
-      newState.isLoggingIn = false;
-      newState.lastName = action.json.lastName;
-      newState.username = action.json.username;
-      newState.email = action.json.email;
+
+      if (action.json.provider == "github") {
+        newState.firstName = action.json.displayName;
+        newState.id = action.json.id;
+        newState.isLoggedIn = true;
+        newState.isLoggingIn = false;
+        newState.lastName = "";
+        newState.username = action.json.username;
+        newState.email = action.json.emails[0].value;
+      } else if (action.json.provider == "amazon") {
+        newState.firstName = action.json.displayName;
+        newState.id = action.json.id;
+        newState.isLoggedIn = true;
+        newState.isLoggingIn = false;
+        newState.lastName = "";
+        newState.username = action.json.displayName;
+        newState.email = action.json.emails[0].value;
+      } else {
+        newState.firstName = action.json.firstName;
+        newState.id = action.json._id;
+        newState.isLoggedIn = true;
+        newState.isLoggingIn = false;
+        newState.lastName = action.json.lastName;
+        newState.username = action.json.username;
+        newState.email = action.json.email;
+      }
       return newState;
     }
     case "AUTHENTICATION_LOGOUT_FAILURE":

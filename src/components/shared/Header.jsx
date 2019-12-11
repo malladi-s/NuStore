@@ -34,6 +34,8 @@ import nustoreImage from "../../img/logo-1.png";
 import searchImg from "../../img/icons/magnify.svg";
 import accountImg from "../../img/icons/account.svg";
 import loginImg from "../../img/icons/login.svg";
+import githubImg from "../../img/icons/github.svg";
+import amazonImg from "../../img/icons/Amazon.svg";
 
 class Header extends React.Component {
   constructor(props) {
@@ -180,6 +182,18 @@ class Header extends React.Component {
                 </span>
               </AvGroup>
               <Button color="primary">Log In</Button>
+
+              <a href="/auth/github">
+                <img src={githubImg} className="pl-2" />
+              </a>
+
+              <a href="/auth/amazon">
+                <img
+                  src={amazonImg}
+                  className="pl-2"
+                  style={{ marginTop: "2px" }}
+                />
+              </a>
             </AvForm>
           </div>
         </ModalBody>
