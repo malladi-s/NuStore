@@ -16,6 +16,11 @@
     "@babel/polyfill": "7.7.0",
     "@babel/preset-env": "7.7.1",
     "@babel/preset-react": "7.7.0",
+    "@babel/plugin-proposal-class-properties": "7.7.4",
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "file-loader": "5.0.2",
+    "image-webpack-loader": "6.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-brands-svg-icons": "^5.11.2",
     "@fortawesome/free-regular-svg-icons": "^5.11.2",
@@ -67,12 +72,5 @@
     "ignore": [
       "src/*"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "file-loader": "^5.0.2",
-    "image-webpack-loader": "^6.0.0"
   }
 }
