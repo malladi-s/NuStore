@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Card } from "reactstrap";
+import { Button, Card, CardImg, CardBody, CardText, CardTitle } from "reactstrap";
 // import {
 //     withRouter
 //   } from 'react-router-dom'
