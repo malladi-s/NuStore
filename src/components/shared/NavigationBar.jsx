@@ -26,6 +26,10 @@ const NavbarItems = [
   {
     label: "Register",
     to: "/account/register"
+  },
+  {
+    label: "Post",
+    to: "/postproducts"
   }
 ];
 
