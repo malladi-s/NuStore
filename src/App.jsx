@@ -16,6 +16,12 @@ import NavigationBar from "./components/shared/NavigationBar";
 import Carousal from "./components/home/Carousal.jsx";
 import postProducts from "./components/products/Postproduct";
 
+import Banner from "./components/profiles/Banner";
+import About from "./components/profiles/About";
+import Friends from "./components/profiles/Friends";
+import Products from "./components/profiles/Products";
+import Contact from "./components/profiles/Contact";
+
 import { checkSession } from "./actions/authentication.js";
 import ProductDetails from "./components/product/ProductDetails";
 
@@ -57,6 +63,7 @@ class App extends React.Component {
               component={ChangePasswordPage}
             />
             <Route exact path="/account/register" component={RegisterPage} />
+            <Route exact path="/profilepage" component={profilePage} />
             <Route
               exact
               path="/account/registration-success"
@@ -84,6 +91,19 @@ function HomePage() {
     <div>
       <Carousal />
       <ProuductList />
+    </div>
+  );
+}
+
+function profilePage() {
+  return (
+    <div>
+      <Banner />
+      <hr />
+      <About />
+      <Friends />
+      <hr />
+      <Products />
     </div>
   );
 }

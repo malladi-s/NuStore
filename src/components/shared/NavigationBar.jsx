@@ -20,9 +20,14 @@ const NavbarItems = [
     to: "/"
   },
   {
+    label: "Profile",
+    to: "/profilePage"
+  },
+  {
     label: "Register",
     to: "/account/register"
   },
+
   {
     label: "Register",
     to: "/account/register"

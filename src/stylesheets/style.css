@@ -133,3 +133,156 @@ a:hover, a:focus {
 }
 
 /* Carousal END */
+
+/*Banner START */
+.container-banner{
+    background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    text-align: left;
+    font-family: inherit;
+    padding: 3%;
+    height:225px;
+}
+
+.sec1{
+    float:left;
+    width:20%;
+}
+.sec2{
+    padding:1%;
+    float:left;
+    width:80%;
+    color:whitesmoke;
+}
+.profileRow1,.profileRow2,.profileRow3{
+    width:100%;
+    float:left;
+}
+.profile-gaps{
+    margin-left:2%;
+}
+.profileRow4{
+    float:right;
+    width:10%;
+}
+#row1f1{
+    float:left;
+    width:30%;
+}
+#row1f2{
+    margin-top:1%;
+    float:left;
+    width:15%;
+    border-radius:15px;
+}
+
+#row2f1{
+    float:left;
+    width:8%;
+}
+
+#row2f2,#row2f3{
+    float:left;
+    width:15%;
+}
+
+#profilepic{
+    border: 4px solid white;
+    background-color: white;
+    border-radius: 100px;
+}
+/*Banner END*/
+
+/*About Start*/
+.container-about{
+    width:30%;
+    float:left;
+    margin-left:1%;
+}
+/*About End*/
+
+/*friends START*/
+.flex-friends-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flex-friends-container>div{
+    background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    width:150px;
+    height:150px;
+    margin:10px;
+    text-align: center;
+    line-height:75px;
+    font-size:30px;
+    border-style: hidden;
+    border-radius: 30px;
+}
+
+.flex-friends-container img{
+    margin-top:27px;
+}
+.imgrounder{
+    border-radius: 105px;
+}
+/*friends END*/
+
+/*products START*/
+/* The grid: Four equal columns that floats next to each other */
+.productColumn {
+    float: left;
+    width: 25%;
+    padding: 10px;
+  }
+  
+  /* Style the images inside the grid */
+  .productColumn img {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  .productColumn img:hover {
+    opacity: 1;
+  }
+  
+  /* Clear floats after the columns */
+  .productRow:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* The expanding image container (positioning is needed to position the close button and the text) */
+  .productContainer {
+    position: relative;
+    display: none;
+  }
+  
+  /* Expanding image text */
+  #imgtext {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    color: white;
+    font-size: 20px;
+  }
+  
+  /* Closable button inside the image */
+  .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: white;
+    font-size: 35px;
+    cursor: pointer;
+  }
+
+  #expandedImg{
+      width:100%;
+  }
+
+  .col{
+      width:40%;
+      float:left;
+  }
+/*products END*/
