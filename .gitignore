@@ -65,3 +65,6 @@ public/dist/*
 
 # Environment file
 .env
+
+# IOS files
+.DS_Store

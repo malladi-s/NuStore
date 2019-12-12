@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Button, Card, CardImg, CardBody, CardText, CardTitle } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardImg,
+  CardBody,
+  CardText,
+  CardTitle
+} from "reactstrap";
 // import {
 //     withRouter
 //   } from 'react-router-dom'
@@ -27,21 +34,20 @@ export default class Cards extends Component {
   }
 
   render() {
+    // imgsrc = require(`/${this.props.product.image}`);
     return (
       <div className="single_card">
         <Card style={{ width: "18rem" }}>
           <CardImg
             top
-            width="100%"
-            src="/assets/318x180.svg"
-            src="https://cdn.vox-cdn.com/thumbor/T49kxT-ZhzKjyWWWkVYiOIyAOv4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/11249379/jbareham_171101_2099_A_0088_02.jpg"
+            width="200px"
+            height="180px"
+            src={this.props.product.image}
           />
+
           <CardBody>
             <CardTitle>{this.props.product.prodname}</CardTitle>
-            <CardText>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </CardText>
+            <CardText>{this.props.product.description}</CardText>
             <Link to={`/product/${this.state.id}`}>
               <Button color="primary">View Details</Button>
             </Link>

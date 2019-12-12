@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { HashRouter as Router, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Adv from "./components/home/adv";
 import RegisterPage from "./components/account/RegistrationContainer.jsx";
 import RegistrationSuccessPage from "./components/account/RegistrationSuccessContainer.jsx";
 import Header from "./components/shared/Header.jsx";
@@ -15,15 +15,14 @@ import ChangePasswordPage from "./components/account/ChangePasswordPageContainer
 import NavigationBar from "./components/shared/NavigationBar";
 import Carousal from "./components/home/Carousal.jsx";
 import postProducts from "./components/products/Postproduct";
-
 import Banner from "./components/profiles/Banner";
 import About from "./components/profiles/About";
 import Friends from "./components/profiles/Friends";
 import Products from "./components/profiles/Products";
-import Contact from "./components/profiles/Contact";
-
+import Footer from "./components/home/footer";
 import { checkSession } from "./actions/authentication.js";
 import ProductDetails from "./components/product/ProductDetails";
+import CenterMode from "./components/home/ProductSlick";
 
 class App extends React.Component {
   constructor(props) {
@@ -90,7 +89,17 @@ function HomePage() {
   return (
     <div>
       <Carousal />
+      <Adv />
+      <CenterMode category="Electronics" />
+      <CenterMode category="Furniture " />
+      <Adv />
+      <CenterMode category="Shoes" />
+      <CenterMode category="Fashion" />
+      <Adv />
+      <CenterMode category="Books" />
+
       <ProuductList />
+      <Footer />
     </div>
   );
 }
