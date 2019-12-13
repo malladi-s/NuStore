@@ -22,7 +22,7 @@ export default class RegisterPage extends React.Component {
       lastName: "",
       password: "",
       img: "",
-      phonenumber: "",
+      phone: "",
       username: "",
       about: ""
     };
@@ -96,7 +96,7 @@ export default class RegisterPage extends React.Component {
             </AvGroup>
 
             <AvField
-              id="phonenumber"
+              id="phone"
               name="telephone"
               label="Phone"
               type="tel"

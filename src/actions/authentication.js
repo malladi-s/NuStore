@@ -1,4 +1,5 @@
 import "whatwg-fetch";
+import { toast } from "react-toastify";
 
 import { incrementLoader, decrementLoader } from "./loader";
 import { clearError } from "./error";
@@ -178,6 +179,10 @@ export function registerUser(userData) {
               )
             )
           );
+
+          toast.error(
+            json.error.message ? "Email or username already exists" : json.error
+          );
         }
       })
       .catch(error => {
@@ -186,6 +191,7 @@ export function registerUser(userData) {
             new Error(error.message || "Registration Failed. Please try again.")
           )
         );
+        toast.error("Registration Failed. Please try again.");
       });
 
     return dispatch(decrementLoader());
