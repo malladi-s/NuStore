@@ -23,7 +23,11 @@ import Footer from "./components/home/footer";
 import { checkSession } from "./actions/authentication.js";
 import ProductDetails from "./components/product/ProductDetails";
 import CenterMode from "./components/home/ProductSlick";
+
 import UserProfileComponent from "./components/userprofile/UserProfile";
+import ProductSearch from "./components/products/productsearch";
+
+import ProductCategory from "./components/products/productcat";
 
 class App extends React.Component {
   constructor(props) {
@@ -56,6 +60,7 @@ class App extends React.Component {
         <div className="wrapper">
           <Header authentication={authentication} />
           <NavigationBar></NavigationBar>
+
           <section className="page-content container-fluid p-0">
             <Route exact path="/" component={HomePage} />
             <Route
@@ -88,11 +93,20 @@ class App extends React.Component {
             />
             <Route exact path="/messages" component={Messenger} />
             <Route path="/postproducts" exact component={post_Products} />
-            <Route exact path="/product/:id"
+            <Route
+              exact
+              path="/product/:id"
               render={props => (
-                <ProductDetailsContainer authentication={authentication} {...props} />
-              )} />
+                <ProductDetailsContainer
+                  authentication={authentication}
+                  {...props}
+                />
+              )}
+            />
+            <Route exact path="/search/:random" component={ProductSearch} />
+            <Route exact path="/category/:random" component={ProductCategory} />
           </section>
+          <Footer />
         </div>
         <ToastContainer autoClose={3000} />
       </Router>
@@ -112,17 +126,16 @@ function HomePage() {
   return (
     <div>
       <Carousal />
-      <Adv />
+
       <CenterMode category="Electronics" />
-      <CenterMode category="Furniture " />
-      <Adv />
+      <CenterMode category="Furniture" />
+      <Adv name1="open.jpeg" />
       <CenterMode category="Shoes" />
       <CenterMode category="Fashion" />
-      <Adv />
+      <Adv name1="open.jpeg" />
       <CenterMode category="Books" />
 
       <ProuductList />
-      <Footer />
     </div>
   );
 }
@@ -138,7 +151,8 @@ function ProfilePage(props) {
       <About about={props.authentication.about} />
       <Friends userId={props.authentication.id} />
       <hr />
-      <Products userId={props.authentication.id} />
+      <Products type="My Products" userId={props.authentication.username} />
+      <Products type="WishList" userId={props.authentication.id} />
     </div>
   );
 }
@@ -163,13 +177,10 @@ function mapStateToProps(state) {
 }
 
 function ProductDetailsContainer(props) {
-
   if (!props.authentication.isLoggedIn) {
     return <p>Not Authorised!</p>;
   }
-  return (
-    <ProductDetails {...props} />
-  );
+  return <ProductDetails {...props} />;
 }
 
 export default connect(mapStateToProps)(App);

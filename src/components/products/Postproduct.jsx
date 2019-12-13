@@ -1,5 +1,12 @@
 import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback
+} from "availity-reactstrap-validation";
 
 class Postproduct extends Component {
   constructor(props) {
@@ -71,6 +78,7 @@ class Postproduct extends Component {
     })
       .then(response => {
         if (response.status === 200) {
+          toast.success(`Product uploaded`);
           return response.json();
         }
         return null;
@@ -79,11 +87,14 @@ class Postproduct extends Component {
         if (json) {
           console.log(json);
         } else {
+          toast.error("eror in Backend");
           console.log("eror in Backend ");
         }
       })
       .catch(error => {
+        toast.error("No details to fetch");
         console.log("fetch failed");
+        t;
       });
   }
 
@@ -96,15 +107,17 @@ class Postproduct extends Component {
 
     return (
       <Fragment>
-        <form className="frm" onSubmit={this.onSubmit}>
+        <AvForm className="frm" onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Product</label>
-            <input
-              type="text"
-              className="form-control"
+            <AvInput
               id="product_name"
+              name="prodname"
               onChange={this.onChangeProd}
-              placeholder="product name here.."
+              placeholder="Product name here.."
+              required
+              type="text"
+              errorMessage="Please enter the name"
             />
           </div>
 
@@ -124,22 +137,25 @@ class Postproduct extends Component {
           </div>
           <div className="form-group">
             <label>Description</label>
-            <input
-              type="text"
-              className="form-control"
+            <AvInput
               id="product_dewsc"
-              placeholder="Product Description goes here.."
+              name="product_dewsc"
               onChange={this.onChangeDesc}
+              placeholder="Product Description goes here.."
+              required
+              type="textarea"
+              errorMessage="Description is required"
             />
           </div>
           <div className="form-group">
-            <label>Product price</label>
-            <input
-              type="text"
-              className="form-control"
+            <AvInput
               id="product_price"
-              placeholder="Set the price of the product"
-              onChange={this.onChangePrice}
+              name="product_price"
+              onChange={this.onChangeDesc}
+              placeholder="Product Description goes here.."
+              required
+              type="number"
+              errorMessage="Set the price of the product"
             />
           </div>
 
@@ -152,15 +168,17 @@ class Postproduct extends Component {
             />
             <label className="custom-file-label">{this.state.image}</label>
           </div>
+
           <div className="sub">
+            <label>Browse Images</label>
             <input
               type="submit"
               value="upload"
               className="btn btn-primary btn-block mt-4"
             />
           </div>
-        </form>
-      </Fragment >
+        </AvForm>
+      </Fragment>
     );
   }
 }

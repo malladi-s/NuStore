@@ -20,21 +20,29 @@ const NavbarItems = [
     to: "/"
   },
   {
-    label: "Profile",
+    label: "Profile ",
     to: "/profilePage"
   },
   {
-    label: "Register",
-    to: "/account/register"
+    label: "Furniture ",
+    to: "/category/Furniture"
+  },
+  {
+    label: "Electronics",
+    to: "/category/Electronics"
   },
 
   {
-    label: "Register",
-    to: "/account/register"
+    label: "Fashion",
+    to: "/category/Fashion"
   },
   {
-    label: "Post",
-    to: "/postproducts"
+    label: "Shoes",
+    to: "/category/Shoes"
+  },
+  {
+    label: "Books",
+    to: "/category/Books"
   }
 ];
 

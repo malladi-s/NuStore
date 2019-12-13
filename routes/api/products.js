@@ -1,6 +1,7 @@
 const router = require("express").Router();
 let Product = require("../../models/Product");
 let User = require("../../models/User");
+let mongoose = require("mongoose");
 
 router.route("/").get((req, res) => {
   Product.find()
@@ -178,22 +179,32 @@ router.route("/isInWishlist/:productId").get((req, res) => {
 
 router.route("/wishlist/:userId").get((req, res) => {
   if (!req.params.userId) {
-    return res.json({ error: "Product id is required." });
+    return res.json({ error: "User id is required." });
   }
 
   User.findById(req.params.userId)
     .then(user => {
       if (user.wishlist) {
-        return res.send(
-          JSON.stringify({
-            wishlist: user.wishlist
-          })
+        let productIdsArray = user.wishlist.map(productId =>
+          mongoose.Types.ObjectId(productId)
         );
-      } else {
-        return res.send(
-          JSON.stringify({
-            isInWishList: false
-          })
+
+        Product.find(
+          {
+            _id: {
+              $in: productIdsArray
+            }
+          },
+          function(err, products) {
+            if (err) {
+              return res.send(
+                JSON.stringify({
+                  error: "Something went wrong."
+                })
+              );
+            }
+            return res.json({ wishlist: products });
+          }
         );
       }
     })
@@ -201,6 +212,35 @@ router.route("/wishlist/:userId").get((req, res) => {
       return res.send(
         JSON.stringify({
           error: "User does not exist."
+        })
+      );
+    });
+});
+
+router.route("/search/:random").get((req, res) => {
+  var val = ".*" + req.params.random + ".*";
+  Product.find({ prodname: { $regex: val } })
+    .then(products => {
+      return res.json(products);
+    })
+    .catch(err => {
+      return res.send(
+        JSON.stringify({
+          error: "Error in search."
+        })
+      );
+    });
+});
+
+router.route("/posted/:username").get((req, res) => {
+  Product.find({ username: req.params.username })
+    .then(products => {
+      return res.json(products);
+    })
+    .catch(err => {
+      return res.send(
+        JSON.stringify({
+          error: "Error in search."
         })
       );
     });

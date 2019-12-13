@@ -51,13 +51,15 @@ class Header extends React.Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleValidSubmit = this.handleValidSubmit.bind(this);
+    this.onChangesearch = this.onChangesearch.bind(this);
 
     this.state = {
       isOpen: false,
       isRegisterAccountModalOpen: false,
       modal: false,
       username: "",
-      password: ""
+      password: "",
+      search: ""
     };
   }
 
@@ -91,6 +93,10 @@ class Header extends React.Component {
 
   handlePasswordChange(e) {
     this.setState({ password: e.target.value });
+  }
+  onChangesearch(e) {
+    this.setState({ search: e.target.value });
+    console.log("In change search" + this.state.search);
   }
 
   async handleValidSubmit() {
@@ -243,10 +249,16 @@ class Header extends React.Component {
 
             <div className="col-xl-6 col-lg-5">
               <form className="header-search-form">
-                <input type="text" placeholder="Search ...." />
-                <button>
-                  <img src={searchImg} />
-                </button>
+                <input
+                  type="text"
+                  placeholder="Search ...."
+                  onChange={this.onChangesearch}
+                />
+                <Link to={`/search/${this.state.search}`}>
+                  <button>
+                    <img src={searchImg} />
+                  </button>
+                </Link>
               </form>
             </div>
 
@@ -261,6 +273,10 @@ class Header extends React.Component {
                     {"  |  "}
                     <Link to="/messages" className="link">
                       Messages
+                    </Link>
+                    {"  |  "}
+                    <Link to="/postproducts" className="link">
+                      Post
                     </Link>
                   </div>
                 ) : (

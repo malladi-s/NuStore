@@ -50,7 +50,9 @@ export default class CenterMode extends Component {
 
     return (
       <div className="bord">
-        <h2 style={hstyle}>{this.props.category}</h2>
+        <Link to={`/category/${this.props.category}`}>
+          <h2 style={hstyle}>{this.props.category}</h2>
+        </Link>
         <hr></hr>
         <Slider {...settings}>
           {this.state.products.map(currentproduct => {
@@ -66,27 +68,9 @@ export default class CenterMode extends Component {
                   <p>{currentproduct.prodname}</p>
                   <p style={fontstyle}>${currentproduct.price}</p>
                 </h3>
-
-                {/* <h3>{currentproduct.price}</h3> */}
               </div>
             );
           })}
-
-          {/* <div>
-            <h3>Krishna</h3>
-          </div>
-          <div>
-            <h3>Manchukonda</h3>
-          </div>
-          <div>
-            <h3>From</h3>
-          </div>
-          <div>
-            <h3>Guntur</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div> */}
         </Slider>
       </div>
     );

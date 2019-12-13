@@ -1,35 +1,58 @@
-import React, { Component } from 'react';
-import logo from "../../img/ad1.png";
+import React, { Component } from "react";
+import Cards from "../home/Card";
+import axios from "axios";
 
 class myProducts extends Component {
-    render() {
-        return (
-            <section className="projects">
-                <div>
-                    <h1 id='Portfolio'>My Products</h1>
-                </div>
-                <div className="ProductRow">
-                    <div className="productColumn">
-                        <img className="col" src={logo} alt="nature" height="160" width="160" onClick={() => productzoomer(logo)} />
-                        <img className="col" src={logo} alt="nature" height="160" width="160" onClick={() => productzoomer(logo)} />
-                    </div>
-                </div>
-                <div className="productContainer">
-                    <span onClick={() => this.parentElement.style.display = 'none'} className="closebtn" color="red">&times;</span>
-                    <img id="expandedImg" />
-                    <div id="imgtext"></div>
-                </div>
-            </section>
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: []
+    };
+  }
+  componentDidMount() {
+    if (this.props.type === "WishList") {
+      axios
+        .get(
+          `http://localhost:${process.env.port}/api/products/wishlist/${this.props.userId}`
         )
+        .then(response => {
+          console.log("response" + response.data);
+          this.setState({ products: response.data.wishlist });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      axios
+        .get(
+          `http://localhost:${process.env.port}/api/products/posted/${this.props.userId}`
+        )
+        .then(response => {
+          console.log("response" + response.data);
+          this.setState({ products: response.data });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
+  }
+  productList() {
+    return this.state.products.map(currentproduct => {
+      return <Cards product={currentproduct} key={currentproduct._id} />;
+    });
+  }
+  render() {
+    const divbor = {
+      border: "1px solid black",
+      width: "100%"
+    };
+    return (
+      <div style={divbor}>
+        <h2>{this.props.type}</h2>
+        {this.productList()}
+      </div>
+    );
+  }
 }
 
-function productzoomer(imgs) {
-    var expandImg = document.getElementById("expandedImg");
-    var imgText = document.getElementById("imgtext");
-    expandImg.src = logo;
-    imgText.innerHTML = imgs.alt;
-    expandImg.parentElement.style.display = "block";
-}
-
-export default myProducts
+export default myProducts;

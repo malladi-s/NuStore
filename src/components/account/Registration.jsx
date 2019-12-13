@@ -101,7 +101,6 @@ export default class RegisterPage extends React.Component {
               label="Phone"
               type="tel"
               required
-              errorMessage="Phone number is invalid"
               onChange={this.handleInputChange}
               onKeyPress={this.handleKeyPress}
             />
