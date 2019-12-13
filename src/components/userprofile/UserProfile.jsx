@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 
 export default class UserProfile extends Component {
   constructor(props) {
@@ -34,14 +35,34 @@ export default class UserProfile extends Component {
             email: json.email,
             phonenumber: json.phonenumber,
             firstName: json.firstName,
-            lastName: json.lastName,
-            followers: json.followers
+            lastName: json.lastName
           });
         } else {
           toast("Failed to fetch user info.");
         }
       })
-      .catch(error => toast(error));
+      .catch(error => toast("Failed."));
+
+    fetch(`/api/users/getFollows/${this.props.match.params.userId}`, {
+      method: "GET",
+      credentials: "same-origin"
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      })
+      .then(json => {
+        if (json) {
+          this.setState({
+            followers: json.follows
+          });
+        } else {
+          toast("Failed to fetch user info.");
+        }
+      })
+      .catch(error => toast("Failed to fetch user info."));
   }
 
   render() {
@@ -85,12 +106,12 @@ export default class UserProfile extends Component {
         {this.state.followers.map(follower => (
           <div className="mt-5 mb-5">
             <h3> Followers </h3>
-            <div class="box mt-5">
-              <div class="card">
-                <div class="imgBx">
+            <div className="box mt-5">
+              <div className="card">
+                <div className="imgBx">
                   <img src={follower.img} alt="images" />
                 </div>
-                <div class="details">
+                <div className="details">
                   <h2>
                     {follower.firstName}
                     <br />
