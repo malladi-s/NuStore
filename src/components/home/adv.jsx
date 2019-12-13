@@ -8,7 +8,7 @@ export default class Adv extends Component {
     const divprop = {
       margin: "20px",
       height: "300px",
-      "background-color": "grey"
+      backgroundColor: "grey"
     };
     return (
       <div className="container-fluid">

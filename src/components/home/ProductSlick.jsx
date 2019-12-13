@@ -38,11 +38,11 @@ export default class CenterMode extends Component {
       width: "90%"
     };
     const fontstyle = {
-      "font-size": "17px"
+      fontSize: "17px"
     };
     const hstyle = {
       textAlign: "center",
-      "font-size": "27px",
+      fontSize: "27px",
       color: "black",
       margin: "20px"
     };

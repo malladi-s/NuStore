@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   height: 100%;
   background: #ffffff;
   font-family: "Josefin Sans", sans-serif;
@@ -7,15 +6,11 @@ body {
   font-smoothing: antialiased;
 }
 
-input:focus,
-select:focus,
-button:focus,
-textarea:focus {
+input:focus, select:focus, button:focus, textarea:focus {
   outline: none;
 }
 
-a:hover,
-a:focus {
+a:hover, a:focus {
   text-decoration: none;
   outline: none;
 }
@@ -100,7 +95,7 @@ a:focus {
   font-size: 27px;
 }
 
-.navbar .navbar-collapse > .navbar-nav > li > a.nav-link {
+.navbar .navbar-collapse>.navbar-nav>li>a.nav-link {
   display: inline-block;
   font-size: 16px;
   color: #ffffff;
@@ -110,7 +105,7 @@ a:focus {
   position: relative;
 }
 
-.navbar .navbar-collapse > .navbar-nav > li:hover > a.nav-link {
+.navbar .navbar-collapse>.navbar-nav>li:hover>a.nav-link {
   color: black;
 }
 
@@ -329,6 +324,7 @@ a:focus {
 .social-links a:hover span {
   color: #fff;
 }
+
 /* footer end */
 
 /* slick overrides START */
@@ -342,12 +338,12 @@ a:focus {
   overflow: hidden;
   background: whitesmoke;
 }
+
 .slick-slider h3 {
   background: transparent;
   color: #aaa7a7;
   font-size: 20px;
   line-height: 40px;
-
   margin: 0px;
   padding: 1%;
   position: relative;
@@ -362,68 +358,84 @@ a:focus {
   line-height: 100px;
   text-align: center;
 }
+
 .center .slick-center h3 {
   color: #462e2d;
   opacity: 1;
   transform: scale(1.08);
 }
+
 .center h3 {
   opacity: 0.8;
   transition: all 300ms ease;
 }
+
 .content {
   padding: 20px;
   margin: auto;
 }
+
 @media (min-width: 701px) {
   .content {
     width: 80%;
   }
 }
+
 @media (max-width: 700px) {
   .content {
     width: 70%;
   }
 }
+
 .slick-slide .image {
   padding: 10px;
 }
+
 .slick-slide img {
   border: 5px solid #fff;
   display: block;
   margin: auto;
   max-width: 80%;
 }
+
 .slick-slide img.slick-loading {
   border: 0;
 }
+
 .slick-slider {
   margin: 30px auto 50px;
   width: 95%;
 }
+
 .slick-dots {
   margin-left: 0;
 }
+
 .slick-thumb {
   bottom: -45px;
 }
+
 .slick-thumb li {
   width: 60px;
   height: 45px;
 }
+
 .slick-thumb li img {
   width: 100%;
   height: 100%;
   filter: grayscale(100%);
 }
+
 .slick-thumb li.slick-active img {
   filter: grayscale(0%);
 }
+
 slick-div {
   height: 200px;
   width: 200px;
   background-color: transparent;
 }
+
 @media (max-width: 768px) {
   h3 {
     font-size: 24px;
@@ -446,6 +458,7 @@ slick-div {
     transition: all 300ms ease;
   }
 }
+
 .slick-vertical .slick-slide {
   height: 180px;
 }
@@ -455,20 +468,16 @@ slick-div {
   top: 35%;
 }
 
-.slick-next:before,
-.slick-prev:before {
+.slick-next:before, .slick-prev:before {
   color: #000 !important;
 }
+
 /* slick overrides END */
 
 /*Banner START */
+
 .container-banner {
-  background-image: linear-gradient(
-    141deg,
-    #9fb8ad 0%,
-    #1fc8db 51%,
-    #2cb5e8 75%
-  );
+  background-image: linear-gradient( 141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
   text-align: left;
   font-family: inherit;
   padding: 3%;
@@ -479,29 +488,33 @@ slick-div {
   float: left;
   width: 20%;
 }
+
 .sec2 {
   padding: 1%;
   float: left;
   width: 80%;
   color: whitesmoke;
 }
-.profileRow1,
-.profileRow2,
-.profileRow3 {
+
+.profileRow1, .profileRow2, .profileRow3 {
   width: 100%;
   float: left;
 }
+
 .profile-gaps {
   margin-left: 2%;
 }
+
 .profileRow4 {
   float: right;
   width: 10%;
 }
+
 #row1f1 {
   float: left;
   width: 30%;
 }
+
 #row1f2 {
   margin-top: 1%;
   float: left;
@@ -514,8 +527,7 @@ slick-div {
   width: 8%;
 }
 
-#row2f2,
-#row2f3 {
+#row2f2, #row2f3 {
   float: left;
   width: 15%;
 }
@@ -525,30 +537,29 @@ slick-div {
   background-color: white;
   border-radius: 100px;
 }
+
 /*Banner END*/
 
 /*About Start*/
+
 .container-about {
   width: 30%;
   float: left;
   margin-left: 1%;
 }
+
 /*About End*/
 
 /*friends START*/
+
 .flex-friends-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.flex-friends-container > div {
-  background-image: linear-gradient(
-    141deg,
-    #9fb8ad 0%,
-    #1fc8db 51%,
-    #2cb5e8 75%
-  );
+.flex-friends-container>div {
+  background-image: linear-gradient( 141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
   width: 150px;
   height: 150px;
   margin: 10px;
@@ -562,13 +573,17 @@ slick-div {
 .flex-friends-container img {
   margin-top: 27px;
 }
+
 .imgrounder {
   border-radius: 105px;
 }
+
 /*friends END*/
 
 /*products START*/
+
 /* The grid: Four equal columns that floats next to each other */
+
 .productColumn {
   float: left;
   width: 25%;
@@ -576,6 +591,7 @@ slick-div {
 }
 
 /* Style the images inside the grid */
+
 .productColumn img {
   opacity: 0.8;
   cursor: pointer;
@@ -586,6 +602,7 @@ slick-div {
 }
 
 /* Clear floats after the columns */
+
 .productRow:after {
   content: "";
   display: table;
@@ -593,12 +610,14 @@ slick-div {
 }
 
 /* The expanding image container (positioning is needed to position the close button and the text) */
+
 .productContainer {
   position: relative;
   display: none;
 }
 
 /* Expanding image text */
+
 #imgtext {
   position: absolute;
   bottom: 15px;
@@ -608,6 +627,7 @@ slick-div {
 }
 
 /* Closable button inside the image */
+
 .closebtn {
   position: absolute;
   top: 10px;
@@ -625,4 +645,13 @@ slick-div {
   width: 40%;
   float: left;
 }
+
 /*products END*/
+
+/* Page Start*/
+
+.page-content {
+  overflow-x: hidden;
+}
+
+/* Page End*/

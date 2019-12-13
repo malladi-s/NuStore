@@ -1,10 +1,11 @@
 const router = require("express").Router();
 let Product = require("../../models/Product");
+let User = require("../../models/User");
 
 router.route("/").get((req, res) => {
   Product.find()
     .then(products => res.json(products))
-    .catch(err => res.status(400).json("Error:" + err));
+    .catch(err => res.json("Error:" + err));
 });
 
 router.route("/add").post((req, res) => {
@@ -27,18 +28,44 @@ router.route("/add").post((req, res) => {
     image,
     isSold
   });
-  newProduct
-    .save()
-    .then(() => res.json("Product Added!"))
-    .catch(err => res.status(400).json("Error:" + err));
+  newProduct.save(err => {
+    if (err) {
+      return res.send(
+        JSON.stringify({
+          error: "Product could not be saved. Please try again."
+        })
+      );
+    }
+
+    User.findOne({ username })
+      .then(user => {
+        user.products.push(newProduct.id);
+        user.save(err => {
+          if (err) {
+            return res.send(
+              JSON.stringify({
+                error: "Product could not be saved. Please try again."
+              })
+            );
+          }
+          return res.json(`Product added by user ${user.username}`);
+        });
+      })
+      .catch(() => {
+        return res.send(
+          JSON.stringify({
+            error: "Product could not be saved. Please try again."
+          })
+        );
+      });
+  });
 });
 
 router.route("/:id").get((req, res) => {
   Product.findById(req.params.id)
     .then(product => res.json(product))
-    .catch(err => res.status(400).json("Error: " + err));
+    .catch(err => res.json("Error: " + err));
 });
-
 
 router.route("/update/:id").post((req, res) => {
   Product.findById(req.params.id)
@@ -55,19 +82,122 @@ router.route("/update/:id").post((req, res) => {
       product
         .save()
         .then(() => res.json("Product updates"))
-        .catch(err => res.status(400).json("Error:" + err));
+        .catch(err => res.json("Error:" + err));
     })
-    .catch(err => res.status(400).json("Error:" + err));
+    .catch(err => res.json("Error:" + err));
 });
 
 router.route("/category/:categoryname").get((req, res) => {
   Product.find({ category: req.params.categoryname })
-    .then((products) => {
-      return res.json(products)
+    .then(products => {
+      return res.json(products);
     })
     .catch(err => {
-      return res.status(400).json("Error:" + err)
+      return res.json("Error:" + err);
     });
-})
+});
+
+router.route("/wishlist/add").post((req, res) => {
+  if (!req.body.userId) {
+    return res.json({ error: "User id is required." });
+  }
+  if (!req.body.productId) {
+    return res.json({ error: "ProductId id is required." });
+  }
+
+  User.findById(req.body.userId)
+    .then(user => {
+      if (user.wishlist.indexOf(req.body.productId) > -1) {
+        return res.send(
+          JSON.stringify({
+            error: "Product is already in wishlist."
+          })
+        );
+      } else {
+        user.wishlist.push(req.body.productId);
+        user.save(err => {
+          if (err) {
+            return res.send(
+              JSON.stringify({
+                error: "Wishlist could not be updated. Please try again."
+              })
+            );
+          }
+          return res.json(`Product added by wishlist by ${user.username}`);
+        });
+      }
+    })
+    .catch(() => {
+      return res.send(
+        JSON.stringify({
+          error:
+            "Product could not be added to wishlist. Please try again later."
+        })
+      );
+    });
+});
+
+router.route("/isInWishlist/:productId").get((req, res) => {
+  if (!req.query.userId) {
+    return res.json({ error: "User id is required." });
+  }
+  if (!req.params.productId) {
+    return res.json({ error: "Product id is required." });
+  }
+
+  User.findById(req.query.userId)
+    .then(user => {
+      if (user.wishlist.indexOf(req.params.productId) > -1) {
+        return res.send(
+          JSON.stringify({
+            isInWishList: true
+          })
+        );
+      } else {
+        return res.send(
+          JSON.stringify({
+            isInWishList: false
+          })
+        );
+      }
+    })
+    .catch(() => {
+      return res.send(
+        JSON.stringify({
+          error: "User does not exist."
+        })
+      );
+    });
+});
+
+router.route("/wishlist/:userId").get((req, res) => {
+  if (!req.params.userId) {
+    return res.json({ error: "Product id is required." });
+  }
+
+  User.findById(req.params.userId)
+    .then(user => {
+      if (user.wishlist) {
+        return res.send(
+          JSON.stringify({
+            wishlist: user.wishlist
+          })
+        );
+      } else {
+        return res.send(
+          JSON.stringify({
+            isInWishList: false
+          })
+        );
+      }
+    })
+    .catch(() => {
+      return res.send(
+        JSON.stringify({
+          error: "User does not exist."
+        })
+      );
+    });
+});
 
 module.exports = router;
