@@ -784,6 +784,8 @@ slick-div {
   font-size: 18px;
 }
 
+/* Profile Page START */
+
 .profile-container .box {
   width: 80%;
   display: grid;
@@ -817,12 +819,12 @@ slick-div {
 
 .profile-container .card:hover:before {
   transform: rotate(20deg);
-  box-shadow: 0 2px 20px rgba(255, 0, 0, 0.2);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, .2);
 }
 
 .profile-container .card:hover:after {
   transform: rotate(10deg);
-  box-shadow: 0 2px 20px rgba(74, 25, 25, 0.65);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, .2);
 }
 
 .profile-container .card .imgBx {

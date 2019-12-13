@@ -136,7 +136,6 @@ export default class RegisterPage extends React.Component {
               <AvFeedback>A last name is required to register</AvFeedback>
             </AvGroup>
 
-<<<<<<< HEAD
             <AvGroup>
               <Label for="about">About</Label>
               <AvInput
@@ -161,13 +160,9 @@ export default class RegisterPage extends React.Component {
                 This will be shown to all users.
               </FormText>
             </FormGroup>
-
-            <Button color="primary">Register</Button>
-=======
             <div className="but">
               <Button color="primary">Register</Button>
             </div>
->>>>>>> css changes
           </AvForm>
         </div>
       </div>

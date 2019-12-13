@@ -39,7 +39,7 @@ module.exports = (env, argv) => {
           loader: "babel-loader"
         },
         {
-          test: /\.(eot|gif|otf|png|svg|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          test: /\.(jpg|eot|gif|otf|png|svg|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           use: "file-loader"
         }
       ]
@@ -55,7 +55,7 @@ module.exports = (env, argv) => {
       new CompressionPlugin({
         filename: "[path].gz[query]",
         algorithm: "gzip",
-        test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+        test: /\.js$|\.css$|\.jpg$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
         threshold: 10240,
         minRatio: 0.8
       })

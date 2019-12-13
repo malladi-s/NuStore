@@ -78,18 +78,28 @@ router.route("/getFollows/:userId").get((req, res) => {
   User.findById(req.params.userId)
     .then(user => {
       if (user.follows) {
-        return res.send(
-          JSON.stringify({
-            follows: user.follows
-          })
+        let followerIds = user.follows.map(followerId =>
+          mongoose.Types.ObjectId(followerId)
+        );
+
+        User.find(
+          {
+            _id: {
+              $in: followerIds
+            }
+          },
+          function(err, users) {
+            if (err) {
+              return res.send(
+                JSON.stringify({
+                  error: "Something went wrong."
+                })
+              );
+            }
+            return res.json({ follows: users });
+          }
         );
       }
-
-      return res.send(
-        JSON.stringify({
-          error: "Something went wrong."
-        })
-      );
     })
     .catch(err => {
       return res.send(
