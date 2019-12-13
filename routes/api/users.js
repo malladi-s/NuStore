@@ -1,4 +1,5 @@
 const router = require("express").Router();
+var mongoose = require("mongoose");
 let User = require("../../models/User");
 
 router.route("/").get((req, res) => {
@@ -64,6 +65,75 @@ router.route("/updateAbout").post((req, res) => {
       return res.send(
         JSON.stringify({
           error: "User bio could not be updated. Please try again later."
+        })
+      );
+    });
+});
+
+router.route("/getFollows/:userId").get((req, res) => {
+  if (!req.params.userId) {
+    return res.json({ error: "User id is required." });
+  }
+
+  User.findById(req.params.userId)
+    .then(user => {
+      if (user.follows) {
+        return res.send(
+          JSON.stringify({
+            follows: user.follows
+          })
+        );
+      }
+
+      return res.send(
+        JSON.stringify({
+          error: "Something went wrong."
+        })
+      );
+    })
+    .catch(err => {
+      return res.send(
+        JSON.stringify({
+          error: "User does not exist."
+        })
+      );
+    });
+});
+
+router.route("/follow/:userId/:anotherUserId").post((req, res) => {
+  if (!req.body.userId) {
+    return res.json({ error: "User id is required." });
+  }
+  if (!req.body.anotherUserId) {
+    return res.json({ error: "Another user id is required." });
+  }
+
+  User.findById(req.body.userId)
+    .then(user => {
+      if (user.follows.indexOf(req.body.anotherUserId) > -1) {
+        return res.send(
+          JSON.stringify({
+            error: "User is already being followed."
+          })
+        );
+      } else {
+        user.follows.push(req.body.anotherUserId);
+        user.save(err => {
+          if (err) {
+            return res.send(
+              JSON.stringify({
+                error: "Unable to follow user. Please try again."
+              })
+            );
+          }
+          return res.json(`Following successfully`);
+        });
+      }
+    })
+    .catch(() => {
+      return res.send(
+        JSON.stringify({
+          error: "Unable to follow user. Please try again later."
         })
       );
     });

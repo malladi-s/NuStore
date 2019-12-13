@@ -104,6 +104,7 @@ export function logUserIn(userData) {
       .then(json => {
         if (json) {
           dispatch(loginSuccess(json));
+          toast.success(`Welcome ${json.username}`);
         } else {
           dispatch(
             loginFailure(

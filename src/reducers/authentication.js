@@ -4,6 +4,7 @@ const initialState = {
   lastName: "",
   email: "",
   username: "",
+  about: "",
   isLoggedIn: false,
   isLoggingIn: false,
   isPasswordChanged: false,
@@ -34,6 +35,7 @@ export default function reducer(state = initialState, action) {
         newState.isLoggedIn = true;
         newState.isLoggingIn = false;
         newState.lastName = "";
+        newState.about = action.json.about || "";
         newState.username = action.json.username;
         newState.email = action.json.emails[0].value;
       } else if (action.json.provider == "amazon") {
@@ -42,6 +44,7 @@ export default function reducer(state = initialState, action) {
         newState.isLoggedIn = true;
         newState.isLoggingIn = false;
         newState.lastName = "";
+        newState.about = action.json.about || "";
         newState.username = action.json.displayName;
         newState.email = action.json.emails[0].value;
       } else {
@@ -49,6 +52,7 @@ export default function reducer(state = initialState, action) {
         newState.id = action.json._id;
         newState.isLoggedIn = true;
         newState.isLoggingIn = false;
+        newState.about = action.json.about || "";
         newState.lastName = action.json.lastName;
         newState.username = action.json.username;
         newState.email = action.json.email;

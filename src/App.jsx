@@ -23,6 +23,7 @@ import Footer from "./components/home/footer";
 import { checkSession } from "./actions/authentication.js";
 import ProductDetails from "./components/product/ProductDetails";
 import CenterMode from "./components/home/ProductSlick";
+import UserProfileComponent from "./components/userprofile/UserProfile";
 
 class App extends React.Component {
   constructor(props) {
@@ -62,7 +63,13 @@ class App extends React.Component {
               component={ChangePasswordPage}
             />
             <Route exact path="/account/register" component={RegisterPage} />
-            <Route exact path="/profilepage" component={profilePage} />
+            <Route
+              exact
+              path="/profilepage"
+              render={props => (
+                <ProfilePage authentication={authentication} {...props} />
+              )}
+            />
             <Route
               exact
               path="/account/registration-success"
@@ -73,7 +80,12 @@ class App extends React.Component {
               path="/account/reset-password"
               component={ResetPasswordPage}
             />
-            <Route path="/profile" component={Profile} />
+            <Route
+              path="/userprofile/:userId"
+              render={props => (
+                <UserProfile authentication={authentication} {...props} />
+              )}
+            />
             <Route exact path="/messages" component={Messenger} />
             <Route path="/postproducts" exact component={postProducts} />
             <Route exact path="/product/:id" component={ProductDetails} />
@@ -104,21 +116,33 @@ function HomePage() {
   );
 }
 
-function profilePage() {
+function ProfilePage(props) {
+  if (!props.authentication.isLoggedIn) {
+    return <p>Not Authorised!</p>;
+  }
   return (
     <div>
-      <Banner />
+      <Banner userId={props.authentication.id} />
       <hr />
-      <About />
-      <Friends />
+      <About about={props.authentication.about} />
+      <Friends userId={props.authentication.id} />
       <hr />
-      <Products />
+      <Products userId={props.authentication.id} />
     </div>
   );
 }
 
-function Profile() {
-  return <div>Home Page</div>;
+class UserProfile extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    if (!this.props.authentication.isLoggedIn) {
+      return <p>Not Authorised!</p>;
+    }
+    return <UserProfileComponent {...this.props} />;
+  }
 }
 
 function mapStateToProps(state) {

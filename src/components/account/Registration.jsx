@@ -3,9 +3,11 @@ import {
   AvForm,
   AvGroup,
   AvInput,
-  AvFeedback
+  AvFeedback,
+  AvField
 } from "availity-reactstrap-validation";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+
+import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 
 export default class RegisterPage extends React.Component {
   constructor(props) {
@@ -19,6 +21,8 @@ export default class RegisterPage extends React.Component {
       firstName: "",
       lastName: "",
       password: "",
+      img: "",
+      phonenumber: "",
       username: "",
       about: ""
     };
@@ -33,7 +37,11 @@ export default class RegisterPage extends React.Component {
   }
 
   handleInputChange(e) {
-    this.setState({ [e.currentTarget.id]: e.target.value });
+    if (e.target.type == "file") {
+      this.setState({ [e.currentTarget.id]: e.target.files[0].name });
+    } else {
+      this.setState({ [e.currentTarget.id]: e.target.value });
+    }
   }
 
   render() {
@@ -87,6 +95,17 @@ export default class RegisterPage extends React.Component {
               <AvFeedback>A username is required to register</AvFeedback>
             </AvGroup>
 
+            <AvField
+              id="phonenumber"
+              name="telephone"
+              label="Phone"
+              type="tel"
+              required
+              errorMessage="Phone number is invalid"
+              onChange={this.handleInputChange}
+              onKeyPress={this.handleKeyPress}
+            />
+
             <AvGroup>
               <Label for="firstName">First Name</Label>
               <AvInput
@@ -128,6 +147,19 @@ export default class RegisterPage extends React.Component {
                 value={this.state.about}
               />
             </AvGroup>
+
+            <FormGroup>
+              <Label for="img">Profile Picture</Label>
+              <Input
+                type="file"
+                name="file"
+                id="img"
+                onChange={this.handleInputChange}
+              />
+              <FormText color="muted">
+                This will be shown to all users.
+              </FormText>
+            </FormGroup>
 
             <Button color="primary">Register</Button>
           </AvForm>
