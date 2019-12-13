@@ -96,7 +96,7 @@ class Postproduct extends Component {
 
     return (
       <Fragment>
-        <form onSubmit={this.onSubmit}>
+        <form className="frm" onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Product</label>
             <input
@@ -152,13 +152,15 @@ class Postproduct extends Component {
             />
             <label className="custom-file-label">{this.state.image}</label>
           </div>
-          <input
-            type="submit"
-            value="upload"
-            className="btn btn-primary btn-block mt-4"
-          />
+          <div className="sub">
+            <input
+              type="submit"
+              value="upload"
+              className="btn btn-primary btn-block mt-4"
+            />
+          </div>
         </form>
-      </Fragment>
+      </Fragment >
     );
   }
 }

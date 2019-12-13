@@ -48,7 +48,7 @@ export default class RegisterPage extends React.Component {
     return (
       <div className="row justify-content-center mt-3">
         <div className="col-10 col-sm-7 col-md-5 col-lg-4">
-          <AvForm onValidSubmit={this.handleValidSubmit}>
+          <AvForm className="Reg" onValidSubmit={this.handleValidSubmit}>
             <AvGroup>
               <Label for="email">Email</Label>
               <AvInput
@@ -136,6 +136,7 @@ export default class RegisterPage extends React.Component {
               <AvFeedback>A last name is required to register</AvFeedback>
             </AvGroup>
 
+<<<<<<< HEAD
             <AvGroup>
               <Label for="about">About</Label>
               <AvInput
@@ -162,6 +163,11 @@ export default class RegisterPage extends React.Component {
             </FormGroup>
 
             <Button color="primary">Register</Button>
+=======
+            <div className="but">
+              <Button color="primary">Register</Button>
+            </div>
+>>>>>>> css changes
           </AvForm>
         </div>
       </div>
