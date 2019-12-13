@@ -19,7 +19,8 @@ export default class RegisterPage extends React.Component {
       firstName: "",
       lastName: "",
       password: "",
-      username: ""
+      username: "",
+      about: ""
     };
   }
 
@@ -114,6 +115,18 @@ export default class RegisterPage extends React.Component {
                 value={this.state.lastName}
               />
               <AvFeedback>A last name is required to register</AvFeedback>
+            </AvGroup>
+
+            <AvGroup>
+              <Label for="about">About</Label>
+              <AvInput
+                id="about"
+                name="about"
+                onChange={this.handleInputChange}
+                placeholder="Tell us about yourself"
+                type="textarea"
+                value={this.state.about}
+              />
             </AvGroup>
 
             <Button color="primary">Register</Button>
