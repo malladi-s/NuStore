@@ -16,12 +16,23 @@ const User = new Schema({
   profileurl: {
     type: String
   },
+  phone: {
+    type: String,
+    validate: {
+      validator: function(v) {
+        return /\d{3}-\d{3}-\d{4}/.test(v);
+      },
+      message: props => `${props.value} is not a valid phone number!`
+    },
+    required: [true, "User phone number required"]
+  },
   firstName: String,
   lastName: String,
   email: String,
   password: { type: String, select: false },
   passwordReset: { type: String, select: false },
-  about: String
+  about: String,
+  img: String
 });
 
 module.exports = User;
