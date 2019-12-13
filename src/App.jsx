@@ -56,7 +56,7 @@ class App extends React.Component {
         <div className="wrapper">
           <Header authentication={authentication} />
           <NavigationBar></NavigationBar>
-          <section className="page-content container-fluid p-0">
+          <section className="page-content container-fluid p-0" >
             <Route exact path="/" component={HomePage} />
             <Route
               path="/account/change-password/:hash"
@@ -87,7 +87,7 @@ class App extends React.Component {
               )}
             />
             <Route exact path="/messages" component={Messenger} />
-            <Route path="/postproducts" exact component={postProducts} />
+            <Route path="/postproducts" exact component={post_Products} />
             <Route exact path="/product/:id" component={ProductDetails} />
           </section>
         </div>
@@ -95,6 +95,14 @@ class App extends React.Component {
       </Router>
     );
   }
+}
+
+function post_Products() {
+  return (
+    <div className="fargment_id">
+      <postProducts />
+    </div>
+  );
 }
 
 function HomePage() {
