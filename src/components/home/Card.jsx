@@ -16,9 +16,6 @@ import { Link } from "react-router-dom";
 export default class Cards extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: this.props.product._id
-    };
     this.prod_details = this.prod_details.bind(this);
   }
 
@@ -48,7 +45,7 @@ export default class Cards extends Component {
           <CardBody>
             <CardTitle>{this.props.product.prodname}</CardTitle>
             <CardText>{this.props.product.description}</CardText>
-            <Link to={`/product/${this.state.id}`}>
+            <Link to={`/product/${this.props.product._id}`}>
               <Button color="primary">View Details</Button>
             </Link>
           </CardBody>

@@ -61,6 +61,7 @@ class Banner extends Component {
           <div className="profileRow2">
             <h5 id="row2f2">{this.state.followers.length} followers</h5>
             <h5 id="row2f3">{this.state.follows.length} following</h5>
+            <button id="row1f2">Follow</button>
           </div>
           <div className="profileRow3">
             <h4>

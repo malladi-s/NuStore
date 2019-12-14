@@ -181,7 +181,7 @@ export function registerUser(userData) {
           );
 
           toast.error(
-            json.error.message ? "Email or username already exists" : json.error
+            json.error.message ? json.error.message : "Something went wrong"
           );
         }
       })

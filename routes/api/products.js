@@ -97,7 +97,7 @@ router.route("/category/:categoryname").get((req, res) => {
     });
 });
 
-router.route("/wishlist/add").post((req, res) => {
+router.route("/wishlist/toggle").post((req, res) => {
   if (!req.body.userId) {
     return res.json({ error: "User id is required." });
   }
@@ -108,11 +108,17 @@ router.route("/wishlist/add").post((req, res) => {
   User.findById(req.body.userId)
     .then(user => {
       if (user.wishlist.indexOf(req.body.productId) > -1) {
-        return res.send(
-          JSON.stringify({
-            error: "Product is already in wishlist."
-          })
-        );
+        user.wishlist.splice(user.wishlist.indexOf(req.body.productId), 1)
+        user.save(err => {
+          if (err) {
+            return res.send(
+              JSON.stringify({
+                error: "Wishlist could not be updated. Please try again."
+              })
+            );
+          }
+          return res.json(`Product removed from wishlist by ${user.username}`);
+        });
       } else {
         user.wishlist.push(req.body.productId);
         user.save(err => {

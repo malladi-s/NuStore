@@ -27,6 +27,12 @@ router.route("/:id").get((req, res) => {
     .catch(err => res.json("Error: " + err));
 });
 
+router.route("/username/:username").get((req, res) => {
+  User.findOne({ username: req.params.username })
+    .then(user => res.json(user))
+    .catch(err => res.json("Error: " + err));
+});
+
 router.route("/updateAbout").post((req, res) => {
   if (!req.body.userId) {
     return res.json({ error: "User id is required." });
@@ -88,7 +94,7 @@ router.route("/getFollows/:userId").get((req, res) => {
               $in: followerIds
             }
           },
-          function(err, users) {
+          function (err, users) {
             if (err) {
               return res.send(
                 JSON.stringify({

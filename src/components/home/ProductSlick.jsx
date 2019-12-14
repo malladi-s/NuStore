@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 export default class CenterMode extends Component {
   constructor(props) {
     super(props);
@@ -57,11 +58,11 @@ export default class CenterMode extends Component {
             return (
               <div className="slick-div">
                 <h3>
-                  <Link to={`/product/${this.state.id}`}>
+                  <Link to={`/product/${currentproduct._id}`}>
                     <a href="">
                       <img style={imgstyle} src={currentproduct.image} />
                     </a>
-                  </Link>
+                  </Link> 
                   <p>{currentproduct.prodname}</p>
                   <p style={fontstyle}>${currentproduct.price}</p>
                 </h3>

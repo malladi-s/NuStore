@@ -370,23 +370,6 @@ a:hover, a:focus {
   transition: all 300ms ease;
 }
 
-.content {
-  padding: 20px;
-  margin: auto;
-}
-
-@media (min-width: 701px) {
-  .content {
-    width: 80%;
-  }
-}
-
-@media (max-width: 700px) {
-  .content {
-    width: 70%;
-  }
-}
-
 .slick-slide .image {
   padding: 10px;
 }
@@ -582,7 +565,6 @@ slick-div {
 
 .container-about {
   width: 30%;
-  float: left;
   margin-left: 1%;
 }
 
@@ -709,14 +691,43 @@ slick-div {
   color: #fff;
 }
 
+
+.profile-wrapper .productWrapper.left {
+  padding-bottom: 0px;
+}
+
+.profile-wrapper .left {
+  padding-bottom: 0;
+}
+
 .profile-wrapper .left img {
-  border-radius: 5px;
+  border-radius: 100px;
   margin-bottom: 10px;
   width: 40%;
 }
 
+
+.profile-wrapper .left img.magnifier-image {
+  border-radius: 0;
+}
+
+.profile-wrapper .left img.productImg {
+  border-radius: 0px;
+  margin-bottom: 10px;
+  width: 60%;
+}
+
+.profile-wrapper .left .socialIcons {
+  width: 55%;
+  margin: 0 auto;
+}
+  
 .profile-wrapper .left h4 {
   margin-bottom: 10px;
+}
+
+.productWrapper.profile-wrapper .left h4 {
+  margin-bottom: 0px;
 }
 
 .profile-wrapper .left p {
@@ -753,6 +764,19 @@ slick-div {
   width: 45%;
 }
 
+.productWrapper.profile-wrapper .right .info_data .data, .profile-wrapper .right .projects_data .data {
+  width: 30%;
+}
+
+.favIcon {
+  font-size: x-large;
+  cursor: pointer;
+}
+
+.favIcon.fav {
+  color: red;
+}
+
 .profile-wrapper .right .info_data .data h4, .profile-wrapper .right .projects_data .data h4 {
   color: #353c4e;
   margin-bottom: 5px;
@@ -761,6 +785,18 @@ slick-div {
 .profile-wrapper .right .info_data .data p, .profile-wrapper .right .projects_data .data p {
   font-size: 13px;
   margin-bottom: 10px;
+  color: #919aa3;
+}
+
+.productWrapper.profile-wrapper .right .info_data .data p, .profile-wrapper .right .projects_data .data p {
+  font-size: 18px;
+}
+
+.productWrapper.profile-wrapper .right .info_data, .profile-wrapper .right .projects_data p.price {
+  font-size: 22px;
+}
+
+.profile-wrapper .right .info_data .data p, .profile-wrapper .right .projects_data .data p.product-description {
   color: #919aa3;
 }
 
