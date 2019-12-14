@@ -88,7 +88,10 @@ class App extends React.Component {
             />
             <Route exact path="/messages" component={Messenger} />
             <Route path="/postproducts" exact component={post_Products} />
-            <Route exact path="/product/:id" component={ProductDetails} />
+            <Route exact path="/product/:id"
+              render={props => (
+                <ProductDetailsContainer authentication={authentication} {...props} />
+              )} />
           </section>
         </div>
         <ToastContainer autoClose={3000} />
@@ -159,13 +162,13 @@ function mapStateToProps(state) {
   };
 }
 
-function Product() {
-  // return (<div>product details</div>);
-  // return (<div><Carousal /><ProductDetails /></div>);
+function ProductDetailsContainer(props) {
+
+  if (!props.authentication.isLoggedIn) {
+    return <p>Not Authorised!</p>;
+  }
   return (
-    <div>
-      <ProductDetails />
-    </div>
+    <ProductDetails {...props} />
   );
 }
 

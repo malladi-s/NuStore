@@ -20,11 +20,13 @@ export default class Messenger extends React.Component {
   constructor(props) {
     super(props);
 
+    let username = props.history.location.state ? props.history.location.state.sellerName : null;
+
     this.state = {
       usersOnline: [],
       messages: [],
       currentMessages: [],
-      selectedUser: null
+      selectedUser: username || null
     };
 
     this.setSelectedUser = this.setSelectedUser.bind(this);
@@ -32,6 +34,7 @@ export default class Messenger extends React.Component {
   }
 
   async componentDidMount() {
+    let selectedUser = this.state.selectedUser;
     await fetch("/api/messages/", {
       method: "GET",
       headers: {
@@ -68,7 +71,7 @@ export default class Messenger extends React.Component {
           this.setState(
             {
               messages: [...json.messages],
-              selectedUser: this.props.username || null
+              selectedUser: selectedUser || null
             },
             () => this.setSelectedUser(this.state.selectedUser)
           );
@@ -77,7 +80,7 @@ export default class Messenger extends React.Component {
       .catch(error => {
         toast.error("Failed to connect to chat api.");
       })
-      .finally(function() {});
+      .finally(function () { });
   }
 
   componentDidUpdate(prevProps, prevState) {
